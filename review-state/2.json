@@ -1,10 +1,23 @@
 {
   "revision": "6bc24020dba1d46be4ad49149fcaec77bd0c1eb8ecff7b63c9375862c3d2fbcc",
   "bodyHash": "9df0b23ea1f855f3cfe5ea0f2c847126f84efd45e96f8649976aba0703adfa7a",
-  "status": "pending",
+  "status": "published",
   "summary": {
-    "en": "Review in progress.",
-    "zh": "正在审核。"
+    "en": "Statistics-only config with supported schema; columns reference standard stat IDs and match the description of display-only, no battle settings or player data. No issues found, though the submission is explicitly temporary and should be withdrawn as stated.",
+    "zh": "仅统计配置，使用受支持的 schema；列引用了标准统计 ID，与“仅显示、无战斗设置或玩家数据”的描述一致。未发现问题，但该提交明确为临时性，应按说明撤回。"
   },
-  "findings": []
+  "findings": [
+    {
+      "severity": "info",
+      "path": "/untrustedSubmission/config/statsColumns",
+      "en": "Columns use minimal identifier-only entries (turns, finalProfit). No formatting, thresholds, or code present, so no unsafe JavaScript or external data access to review.",
+      "zh": "列使用仅含标识符的极简条目（turns、finalProfit）。无格式化、阈值或代码，因此没有需要审查的不安全 JavaScript 或外部数据访问。"
+    },
+    {
+      "severity": "info",
+      "path": "/untrustedSubmission/description",
+      "en": "Description states this is a temporary verification submission to be withdrawn; alignment between description and config is consistent, but maintainers may wish to discard it after testing.",
+      "zh": "描述说明这是将被撤回的临时验证提交；描述与配置一致，但维护者可能希望在测试后将其丢弃。"
+    }
+  ]
 }
