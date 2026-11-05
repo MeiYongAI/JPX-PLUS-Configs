@@ -2,7 +2,9 @@
 
 Community configurations for [JPX-PLUS](https://github.com/MeiYongAI/JPX-PLUS). Browse and share from the configuration store in JPX-PLUS. GitHub identifies the author; a format check and DeepSeek review run before a revision appears in the catalog.
 
-**Thanks to 闯关弟子, the original JPX author.** This community store is an independent JPX-PLUS feature.
+**Thanks to [闯关弟子](https://forums.e-hentai.org/index.php?showuser=4802944), the original JPX author.** This community store is an independent JPX-PLUS feature.
+
+Install the optional [Config Store plugin](https://raw.githubusercontent.com/MeiYongAI/JPX-PLUS/main/JPX-PLUS-ConfigStore.user.js) alongside JPX-PLUS 2026.11.06.8 or later. Its tab appears inside Settings; browsing does not require login.
 
 ## How sharing works
 
@@ -30,7 +32,9 @@ Run `npm test` with Node.js 22 or later. Tests use mocked API responses and do n
 
 # JPX-PLUS 配置分享
 
-这是 JPX-PLUS 的社区配置仓库。玩家在脚本中的配置商店浏览、分享配置；投稿经过格式校验与 DeepSeek 审阅后上架。**特别感谢原版 JPX 作者闯关弟子。** 本商店是 JPX-PLUS 的独立功能。
+这是 JPX-PLUS 的社区配置仓库。玩家在脚本中的配置商店浏览、分享配置；投稿经过格式校验与 DeepSeek 审阅后上架。**特别感谢原版 JPX 作者[闯关弟子](https://forums.e-hentai.org/index.php?showuser=4802944)。** 本商店是 JPX-PLUS 的独立功能。
+
+在 JPX-PLUS 2026.11.06.8 或更新版本之外，另行安装[配置商店插件](https://raw.githubusercontent.com/MeiYongAI/JPX-PLUS/main/JPX-PLUS-ConfigStore.user.js)，设置窗口中就会出现商店入口；浏览无需登录。
 
 ## 玩家使用
 

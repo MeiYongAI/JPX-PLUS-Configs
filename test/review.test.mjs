@@ -90,6 +90,10 @@ test('submission prompt injection stays data and DeepSeek has no tools or execut
     return { ok: true, json: async () => ({ choices: [{ finish_reason: 'stop', message: { content: JSON.stringify(pass()) } }] }) };
   } });
   assert.equal(result.verdict, 'pass'); assert.equal(request.messages[0].role, 'system');
+  assert.match(request.messages[0].content, /battleVersion 20251216 and statsVersion 20260109/);
+  assert.match(request.messages[0].content, /schema identifiers, not submission dates/);
+  assert.ok(request.messages[0].content.includes('Trusted review date (UTC): ' + new Date().toISOString().slice(0, 10)));
+  assert.match(request.messages[0].content, /Custom JavaScript still requires maintainer review/);
   assert.equal(JSON.parse(request.messages[1].content).untrustedSubmission.description, envelope.description);
   assert.ok(!JSON.stringify(request).includes('test-secret')); assert.equal(request.tools, undefined);
   await assert.rejects(reviewWithDeepSeek(envelope, { apiKey: 'x', fetchImpl: async () => ({ ok: true, json: async () => ({ choices: [{ finish_reason: 'length', message: { content: JSON.stringify(pass()) } }] }) }) }));
