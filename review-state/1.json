@@ -1,10 +1,23 @@
 {
   "revision": "47aa1f476e1e9d37a591a165660b84b3177c5b44369a9c2c1ce36755879031a4",
   "bodyHash": "74f99a9c834d8a56dcf234e4667883a10d0c5c07c63965aa47554031be8678e4",
-  "status": "pending",
+  "status": "needs-review",
   "summary": {
-    "en": "Review in progress.",
-    "zh": "正在审核。"
+    "en": "Statistics-only submission with a temporary verification note; settings match the stated intent, but the future-dated statsVersion needs human confirmation.",
+    "zh": "仅包含统计项的提交，并附临时验证说明；设置与所述意图相符，但日期为未来的 statsVersion 需要人工确认。"
   },
-  "findings": []
+  "findings": [
+    {
+      "severity": "info",
+      "path": "untrustedSubmission.config.statsColumns",
+      "en": "Only statistics columns (turns, finalProfit) are configured with no battle settings or player data, consistent with the description.",
+      "zh": "仅配置了统计列（turns、finalProfit），没有战斗设置或玩家数据，与描述一致。"
+    },
+    {
+      "severity": "warning",
+      "path": "untrustedSubmission.config.statsVersion",
+      "en": "statsVersion 20260109 is a future-dated value relative to scriptVersion 2026.11.06.8; confirm the intended version numbering is not a typo.",
+      "zh": "statsVersion 20260109 相对于 scriptVersion 2026.11.06.8 是未来日期值；请确认版本编号不是笔误。"
+    }
+  ]
 }
