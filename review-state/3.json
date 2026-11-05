@@ -1,17 +1,10 @@
 {
-  "revision": "47aa1f476e1e9d37a591a165660b84b3177c5b44369a9c2c1ce36755879031a4",
-  "bodyHash": "74f99a9c834d8a56dcf234e4667883a10d0c5c07c63965aa47554031be8678e4",
-  "status": "published",
+  "revision": "6bc24020dba1d46be4ad49149fcaec77bd0c1eb8ecff7b63c9375862c3d2fbcc",
+  "bodyHash": "9df0b23ea1f855f3cfe5ea0f2c847126f84efd45e96f8649976aba0703adfa7a",
+  "status": "pending",
   "summary": {
-    "en": "A minimal stats-only configuration declaring two display columns (turns, finalProfit) on the supported statsVersion baseline. No battle rules, custom JavaScript, external data access, or contradictory settings; the description matches the content. Version labels are not treated as dates.",
-    "zh": "这是一个极简的仅统计配置，在受支持的 statsVersion 基线上声明两个显示列（turns、finalProfit）。没有战斗规则、自定义 JavaScript、外部数据访问或矛盾设置，描述与内容一致。版本标签不被视为日期。"
+    "en": "Review in progress.",
+    "zh": "正在审核。"
   },
-  "findings": [
-    {
-      "severity": "info",
-      "path": "/config/statsColumns",
-      "en": "Columns turns and finalProfit are display-only identifiers; no logic or player data is involved.",
-      "zh": "turns 和 finalProfit 列仅为显示标识符，不涉及逻辑或玩家数据。"
-    }
-  ]
+  "findings": []
 }
