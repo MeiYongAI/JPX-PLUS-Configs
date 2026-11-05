@@ -1,0 +1,7 @@
+{
+  "name": "jpx-plus-configs",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test", "review": "node scripts/run-review.mjs" },
+  "engines": { "node": ">=22" }
+}

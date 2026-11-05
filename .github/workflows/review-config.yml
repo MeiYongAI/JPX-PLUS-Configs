@@ -1,0 +1,44 @@
+name: Review shared configuration
+on:
+  schedule:
+    - cron: '17,47 * * * *'
+  issues:
+    types: [opened, edited, reopened, closed]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number / 投稿编号
+        required: true
+      action:
+        description: Maintainer action / 维护操作
+        type: choice
+        options: [retry, approve, hide]
+        required: true
+      sha256:
+        description: Exact pending SHA-256 for approval / 批准时填写待审核版本哈希
+        required: false
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: configuration-catalog
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: node scripts/run-review.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL }}
+          REVIEW_DAILY_LIMIT: ${{ vars.REVIEW_DAILY_LIMIT }}
+          REVIEW_AUTHOR_DAILY_LIMIT: ${{ vars.REVIEW_AUTHOR_DAILY_LIMIT }}
