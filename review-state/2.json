@@ -1,10 +1,17 @@
 {
   "revision": "47aa1f476e1e9d37a591a165660b84b3177c5b44369a9c2c1ce36755879031a4",
   "bodyHash": "74f99a9c834d8a56dcf234e4667883a10d0c5c07c63965aa47554031be8678e4",
-  "status": "pending",
+  "status": "published",
   "summary": {
-    "en": "Review in progress.",
-    "zh": "正在审核。"
+    "en": "Submission is a minimal stats-only display configuration with two supported columns; the description accurately matches the settings, no custom JavaScript, no external data access, and no contradictions found.",
+    "zh": "提交为仅统计显示的最小化配置，包含两个受支持的列；描述与设置一致，无自定义 JavaScript、无外部数据访问，也未发现矛盾。"
   },
-  "findings": []
+  "findings": [
+    {
+      "severity": "info",
+      "path": "$.untrustedSubmission.title",
+      "en": "Title refers to a 'temporary store verification', but the content is a stats column display config; harmless since the description clarifies statistics-only scope.",
+      "zh": "标题提到“临时存储验证”，但内容为统计列显示配置；描述已说明仅用于统计，无实际影响。"
+    }
+  ]
 }
