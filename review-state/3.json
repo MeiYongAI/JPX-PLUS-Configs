@@ -1,10 +1,10 @@
 {
   "revision": "6bc24020dba1d46be4ad49149fcaec77bd0c1eb8ecff7b63c9375862c3d2fbcc",
   "bodyHash": "9df0b23ea1f855f3cfe5ea0f2c847126f84efd45e96f8649976aba0703adfa7a",
-  "status": "pending",
+  "status": "published",
   "summary": {
-    "en": "Review in progress.",
-    "zh": "正在审核。"
+    "en": "Statistics-only submission with supported baseline and two standard columns; description matches configuration and no scripts or external access present.",
+    "zh": "仅统计配置，基线版本受支持，包含两个常规列；描述与配置一致，无脚本或外部数据访问。"
   },
   "findings": []
 }
