@@ -1,19 +1,5 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T19:27:10.726Z",
-  "entries": [
-    {
-      "id": 2,
-      "author": "MeiYongAI",
-      "title": "Temporary store verification",
-      "description": "Temporary integration verification. Statistics display only; no battle settings or player data. This submission will be withdrawn after the test. Update verification: the displayed columns are unchanged.",
-      "world": "Any",
-      "kind": "stats",
-      "scriptVersion": "2026.11.06.8",
-      "updatedAt": "2026-11-05T19:27:10.726Z",
-      "sha256": "6bc24020dba1d46be4ad49149fcaec77bd0c1eb8ecff7b63c9375862c3d2fbcc",
-      "configPath": "catalog/configs/2-6bc24020dba1d46be4ad49149fcaec77bd0c1eb8ecff7b63c9375862c3d2fbcc.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/2"
-    }
-  ]
+  "updatedAt": "2026-11-05T19:32:05.383Z",
+  "entries": []
 }
