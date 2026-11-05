@@ -70,6 +70,7 @@ export class GitHub {
       metadata.findings.map(item => `- ${visible(item.en)} / ${visible(item.zh)}`).join('\n') +
       `\n\nRevision / 版本：\`${metadata.revision}\`\n\nStatic review only; no combat or submitted code was executed. / 仅静态审核，未执行战斗或投稿代码。`;
     const previous = (await this.comments(number)).find(comment => comment.user?.login === 'github-actions[bot]' && comment.body?.startsWith('<!-- JPX-PLUS-REVIEW:v1 '));
+    if (previous?.body === body) return;
     if (previous) await this.request(`issues/comments/${previous.id}`, 'PATCH', { body });
     else await this.request(`issues/${number}/comments`, 'POST', { body });
   }

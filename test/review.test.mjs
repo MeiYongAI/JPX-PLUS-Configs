@@ -29,9 +29,9 @@ class FakeGitHub {
 }
 const run = (github, extra = {}) => processSubmission({ github, number: 1, action: 'opened', actor: 'player', review: async () => pass(), now: () => '2026-11-06T12:00:00.000Z', ...extra });
 
-test('legacy battle version and unknown inert fields survive without mutation', () => {
+test('current battle format and unknown inert fields survive without mutation', () => {
   const envelope = config(); envelope.kind = 'battle'; delete envelope.mode;
-  envelope.config.version = envelope.config.battleVersion; delete envelope.config.battleVersion;
+  envelope.config.TwoHanded_Arena = {};
   envelope.config.futureField = { preserved: true };
   const before = JSON.stringify(envelope), parsed = parseSubmission(body(envelope));
   assert.equal(JSON.stringify(envelope), before); assert.deepEqual(parsed.envelope, envelope);
@@ -47,9 +47,9 @@ test('malformed, oversized and prototype-bearing submissions cannot pass validat
   assert.throws(() => validateEnvelope(unrelated));
   assert.equal({}.polluted, undefined);
 });
-test('custom code in both support and attack lists is valid but always manual', () => {
-  for (const section of ['supports', 'attacks']) {
-    const envelope = config(); envelope.config.TwoHanded_General[section].push({ type: 'kamisamaniNattaHi', code: 'throw Error("NEVER RUN")' });
+test('custom code in attack and keyboard lists is valid but always manual', () => {
+  for (const section of ['attacks', 'kb_65']) {
+    const envelope = config(); envelope.config.TwoHanded_General[section] ??= []; envelope.config.TwoHanded_General[section].push({ type: 'kamisamaniNattaHi', code: 'throw Error("NEVER RUN")' });
     const parsed = validateEnvelope(envelope);
     assert.equal(parsed.manualRequired, true); assert.ok(parsed.findings.some(finding => finding.path.includes(section)));
   }
@@ -58,6 +58,25 @@ test('statistics IDs, types and future metadata follow compatibility contract', 
   const envelope = { ...config(), kind: 'stats', world: 'Any', config: { statsVersion: 20260109, combatRows: [{ id: 'fire', s_pd: 'color:#f00', future: 1 }] } }; delete envelope.mode;
   assert.deepEqual(validateEnvelope(envelope).envelope, envelope);
   envelope.config.combatRows.push({ id: 'fire' }); assert.throws(() => validateEnvelope(envelope));
+});
+test('unsupported rule and condition discriminators cannot enter the editor', () => {
+  const supportCode = config(); supportCode.config.TwoHanded_General.supports.push({ type: 'kamisamaniNattaHi', code: 'return false;' });
+  assert.throws(() => validateEnvelope(supportCode));
+  const unknown = config(); unknown.config.TwoHanded_General.attacks[0].type = 'future-rule'; assert.throws(() => validateEnvelope(unknown));
+  const badCondition = config(); badCondition.config.TwoHanded_General.attacks[0].conditions = [{ key: 'future-condition', value: [] }]; assert.throws(() => validateEnvelope(badCondition));
+  const malformed = config(); malformed.config.TwoHanded_General.kb_65 = {}; assert.throws(() => validateEnvelope(malformed));
+});
+test('legacy aliases canonicalize without changing the submitted object', () => {
+  const envelope = config(); envelope.mode = 'Battlecaster_General';
+  envelope.config = { version: 20251216, Battlecaster_General: { supports: [{ type: 'spellInstant', name: 'Cure' }, { type: 'itemDuration', name: 'Health Draught' }], attacks: [{ type: 'normalAttack' }] } };
+  const before = clone(envelope), parsed = validateEnvelope(envelope);
+  assert.deepEqual(envelope, before);
+  assert.equal(parsed.envelope.mode, '1H_Mage_General');
+  assert.equal(parsed.envelope.config.battleVersion, 20251216); assert.equal(parsed.envelope.config.version, undefined);
+  assert.equal(parsed.envelope.config.Battlecaster_General, undefined);
+  assert.deepEqual(parsed.envelope.config['1H_Mage_General'].supports.map(rule => rule.type), ['spellSupport', 'item']);
+  assert.equal(parsed.sha256, snapshot(parsed.envelope).sha256);
+  assert.equal(validateEnvelope(parsed.envelope).sha256, parsed.sha256);
 });
 test('strict AI result rejects Markdown, truncation, wrong types and conflicting verdicts', () => {
   assert.deepEqual(parseVerdict(JSON.stringify(pass())), pass());
@@ -101,7 +120,7 @@ test('close during commit withdraws published snapshot immediately', async () =>
   assert.equal((await run(github)).status, 'withdrawn'); assert.deepEqual(github.files['catalog/index.json'].entries, []);
 });
 test('only exact pending revision can be approved by a maintainer', async () => {
-  const github = new FakeGitHub(); const envelope = config(); envelope.config.TwoHanded_General.supports.push({ type: 'kamisamaniNattaHi', code: 'return false;' }); github.value.body = body(envelope);
+  const github = new FakeGitHub(); const envelope = config(); envelope.config.TwoHanded_General.attacks.push({ type: 'kamisamaniNattaHi', code: 'return false;' }); github.value.body = body(envelope);
   const pending = await run(github); assert.equal(pending.status, 'needs-review');
   await assert.rejects(run(github, { command: 'approve', actor: 'player', expectedHash: pending.revision }));
   await assert.rejects(run(github, { command: 'approve', actor: 'owner', expectedHash: 'a'.repeat(64) }));
@@ -146,4 +165,26 @@ test('GitHub publishes one tree and never force updates the branch', async () =>
   assert.equal(requests.find(request => request.path === 'git/trees').data.tree.length, 2);
   assert.deepEqual(requests.at(-1).data, { sha: 'commit', force: false });
   assert.ok(!JSON.stringify(requests).includes('private'));
+});
+test('a committed review can recover failed status reporting without another AI call', async () => {
+  const github = new FakeGitHub(); const original = github.report.bind(github);
+  github.report = async (number, metadata) => { if (metadata.status === 'published') throw Error('Temporary network failure'); await original(number, metadata); };
+  await assert.rejects(run(github)); assert.equal(github.files['catalog/index.json'].entries.length, 1);
+  github.report = original;
+  const result = await run(github, { review: async () => { throw Error('AI must not be called again'); } });
+  assert.equal(result.skipped, 'already-reviewed'); assert.equal(github.reports.at(-1).status, 'published');
+});
+test('bot metadata escapes HTML and repeated identical reports are not edited', async () => {
+  const calls = []; let posted;
+  const github = new GitHub({ repository: 'owner/repo', token: 'private', branch: 'main', fetchImpl: async (url, options) => {
+    const data = options.body && JSON.parse(options.body); calls.push({ method: options.method, data });
+    if (data?.body) posted = data.body;
+    return { ok: true, status: 200, json: async () => options.method === 'GET' ? posted ? [{ id: 1, user: { login: 'github-actions[bot]' }, body: posted }] : [] : { id: 1 } };
+  } });
+  const metadata = { revision: 'a'.repeat(64), status: 'needs-review', summary: { en: '<!-- malicious -->', zh: '检查' }, findings: [] };
+  await github.report(1, metadata);
+  const encoded = posted.split('\n')[0]; assert.equal(encoded.indexOf('-->'), encoded.length - 3);
+  assert.deepEqual(JSON.parse(encoded.slice('<!-- JPX-PLUS-REVIEW:v1 '.length, -4)), metadata);
+  const writes = calls.filter(call => call.method !== 'GET').length; await github.report(1, metadata);
+  assert.equal(calls.filter(call => call.method !== 'GET').length, writes);
 });

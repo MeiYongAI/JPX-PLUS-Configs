@@ -5,6 +5,10 @@ export const MAX_BYTES = 60000;
 const styles = ['OneHanded', '1H_Mage', 'TwoHanded', '2H_Mage', 'DualWielding', 'DW_Mage', 'NitenIchiryu', 'NI_Mage', 'Staff', 'Unarmed'];
 const battles = ['General', 'Arena', 'Encounter', 'Colosseum', 'Battle1000', 'Item', 'Tower'];
 export const MODES = new Set(styles.flatMap(style => battles.map(type => `${style}_${type}`)));
+const supportTypes = ['spellSupport', 'item', 'toggle', 'stop'];
+const attackTypes = ['target', 'toggle', 'smartDebuff', 'spellDebuff', 'spellDamage', 'skill', 'normalAttack', 'kamisamaniNattaHi'];
+const keyTypes = new Set([...supportTypes, ...attackTypes]);
+const conditions = new Set(['world', 'pLevel', 'pMaxSpellType', 'battleTypes', 'difficulty', 'roundCurrent', 'roundLeft', 'roundTotal', 'floor', 'pActionCooldown', 'pActionHistory', 'pActionCounts', 'pTotalActionCounts', 'pHP', 'pMP', 'pSP', 'pOC', 'pSpiritStatus', 'pEffects', 'pIgnoredEffects', 'pEffectStacks', 'monsters', 'activeMonsters', 'defeatedMonsters', 'bosses', 'activeBosses', 'defeatedBosses', 'mLevel', 'mWithoutEffects', 'tName', 'tTypes', 'tClasses', 'tPowerLevel', 'tIndex', 'tHP', 'tMP', 'tSP', 'tEffects', 'tIgnoredEffects', 'tEffectStacks', 'tDaysSinceUpdate']);
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const fail = (path, en, zh) => { throw Object.assign(new Error(en), { finding: { severity: 'error', path, en, zh } }); };
 const required = (condition, path, en, zh) => { if (!condition) fail(path, en, zh); };
@@ -29,7 +33,7 @@ export function validateEnvelope(envelope) {
   const findings = [];
   let nodes = 0;
   function visit(value, path = '$', depth = 0) {
-    required(++nodes <= 16000 && depth <= 30, path, 'The configuration is too complex.', '配置层级或内容过多。');
+    required(++nodes <= 12000 && depth <= 24, path, 'The configuration is too complex.', '配置层级或内容过多。');
     if (typeof value === 'string') required(value.length <= 30000, path, 'A text field is too long.', '文本字段过长。');
     if (typeof value === 'number') required(Number.isFinite(value), path, 'Numbers must be finite.', '数值必须有限。');
     if (!value || typeof value !== 'object') return;
@@ -39,17 +43,22 @@ export function validateEnvelope(envelope) {
     }
   }
   visit(envelope);
+  // Normalize only a detached copy; snapshots and reviews share the client format.
+  envelope = JSON.parse(JSON.stringify(envelope));
   required(plain(envelope) && envelope.schemaVersion === 1, '$.schemaVersion', 'Unsupported submission format.', '不支持的投稿格式。');
+  required(Object.keys(envelope).every(key => ['schemaVersion', 'kind', 'title', 'description', 'world', 'mode', 'scriptVersion', 'config'].includes(key)), '$', 'Unexpected submission metadata.', '投稿包含未知元数据。');
   required(['battle-mode', 'battle', 'stats'].includes(envelope.kind), '$.kind', 'Choose a supported configuration category.', '请选择支持的配置类型。');
   required(typeof envelope.title === 'string' && envelope.title.trim().length > 0 && envelope.title.length <= 100, '$.title', 'Title must contain 1–100 characters.', '标题须为 1 至 100 个字符。');
   required(typeof envelope.description === 'string' && envelope.description.length <= 4000, '$.description', 'Description must be at most 4,000 characters.', '说明最多 4,000 个字符。');
+  required(!/[\r\n]/.test(envelope.title) && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(envelope.title + envelope.description), '$', 'Remove control characters from the title and description.', '请移除标题与说明中的控制字符。');
   required(['Persistent', 'Isekai', 'Any'].includes(envelope.world), '$.world', 'Choose a valid world.', '请选择有效的世界。');
   required(typeof envelope.scriptVersion === 'string' && /^[\d.\w-]{1,40}$/.test(envelope.scriptVersion), '$.scriptVersion', 'A script version is required.', '请提供脚本版本。');
   const config = envelope.config;
   required(plain(config), '$.config', 'Configuration must be an object.', '配置正文必须为对象。');
   if (envelope.kind === 'stats') {
+    required(envelope.mode === undefined, '$.mode', 'Statistics shares do not have a battle mode.', '统计分享不应包含战斗模式。');
     required(Number.isSafeInteger(config.statsVersion) && config.statsVersion >= 20260109, '$.config.statsVersion', 'Export statistics settings from a supported JPX version.', '请从受支持的 JPX 版本导出统计设置。');
-    const lists = ['combatRows', 'combatUseRows', 'revenueRows', 'statsColumns'];
+    const lists = ['combatRows', 'revenueRows', 'statsColumns'];
     required(lists.some(key => Array.isArray(config[key])), '$.config', 'No statistics settings were found.', '未找到统计设置。');
     for (const key of lists) {
       if (!(key in config)) continue;
@@ -57,7 +66,7 @@ export function validateEnvelope(envelope) {
       const ids = new Set();
       for (const [index, item] of config[key].entries()) {
         const path = `$.config.${key}[${index}]`;
-        required(plain(item) && typeof item.id === 'string' && item.id.length > 0 && item.id.length <= 100 && !ids.has(item.id), path, 'Statistics IDs must be nonempty and unique.', '统计项目 ID 必须非空且不重复。');
+        required(plain(item) && typeof item.id === 'string' && item.id.trim().length > 0 && item.id.length <= 100 && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(item.id) && !ids.has(item.id), path, 'Statistics IDs must be nonempty and unique.', '统计项目 ID 必须非空且不重复。');
         ids.add(item.id);
         if ('disabled' in item) required(typeof item.disabled === 'boolean', path + '.disabled', 'Disabled must be boolean.', '停用状态必须为布尔值。');
         for (const field of ['customName', 'styleText', 'colorThresholds', ...Object.keys(item).filter(key => key.startsWith('s_'))]) {
@@ -66,24 +75,41 @@ export function validateEnvelope(envelope) {
       }
     }
   } else {
-    const version = config.battleVersion ?? config.version;
+    if (!config.battleVersion && config.version) config.battleVersion = config.version;
+    delete config.version;
+    if (!config['1H_Mage_General'] && config.Battlecaster_General) config['1H_Mage_General'] = config.Battlecaster_General;
+    delete config.Battlecaster_General;
+    if (envelope.mode === 'Battlecaster_General') envelope.mode = '1H_Mage_General';
+    const version = config.battleVersion;
     required(Number.isSafeInteger(version) && version >= 20251216, '$.config.battleVersion', 'Export battle settings from a supported JPX version.', '请从受支持的 JPX 版本导出战斗设置。');
-    const modes = Object.keys(config).filter(key => MODES.has(key) || key === 'Battlecaster_General');
+    const modes = Object.keys(config).filter(key => MODES.has(key));
     required(modes.length > 0, '$.config', 'No supported battle mode was found.', '未找到支持的战斗模式。');
     if (envelope.kind === 'battle-mode') {
       required(MODES.has(envelope.mode) && modes.length === 1 && modes[0] === envelope.mode, '$.mode', 'A single-mode share must contain exactly the selected mode.', '单模式分享只能包含所选的战斗模式。');
-      required(Object.keys(config).every(key => ['battleVersion', 'version', envelope.mode].includes(key)), '$.config', 'Single-mode shares must not include unrelated settings.', '单模式分享不应包含其他设置。');
+      required(Object.keys(config).every(key => ['battleVersion', envelope.mode].includes(key)), '$.config', 'Single-mode shares must not include unrelated settings.', '单模式分享不应包含其他设置。');
     }
+    else required(envelope.mode === undefined, '$.mode', 'Full battle settings do not select one mode.', '整套战斗设置不应指定单个模式。');
     let ruleCount = 0;
     for (const mode of modes) {
       required(plain(config[mode]), `$.config.${mode}`, 'Battle mode must be an object.', '战斗模式必须为对象。');
-      for (const kind of ['supports', 'attacks']) {
+      if (envelope.kind === 'battle' && Object.keys(config[mode]).length === 0) continue;
+      for (const kind of ['supports', 'attacks', ...Object.keys(config[mode]).filter(key => key.startsWith('kb_'))]) {
         const rules = config[mode][kind], path = `$.config.${mode}.${kind}`;
         required(Array.isArray(rules), path, 'A battle mode needs support and attack lists.', '战斗模式须包含辅助与攻击规则列表。');
         ruleCount += rules.length;
         for (const [index, rule] of rules.entries()) {
+          if (plain(rule) && ['spellInstant', 'spellDuration'].includes(rule.type)) rule.type = 'spellSupport';
+          if (plain(rule) && ['itemInstant', 'itemDuration'].includes(rule.type)) rule.type = 'item';
           required(plain(rule) && typeof rule.type === 'string' && rule.type.length > 0 && rule.type.length <= 80, `${path}[${index}]`, 'Every rule needs a type.', '每条规则须有类型。');
+          const allowed = kind === 'supports' ? supportTypes.includes(rule.type) : kind === 'attacks' ? attackTypes.includes(rule.type) : keyTypes.has(rule.type);
+          required(allowed, `${path}[${index}].type`, 'This rule type is not supported in this section.', '当前分组不支持此规则类型。');
           if ('conditions' in rule) required(Array.isArray(rule.conditions), `${path}[${index}].conditions`, 'Conditions must be a list.', '条件必须为列表。');
+          for (const [conditionIndex, condition] of (rule.conditions || []).entries()) {
+            const conditionPath = `${path}[${index}].conditions[${conditionIndex}]`;
+            required(plain(condition) && conditions.has(condition.key), conditionPath, 'Unknown condition type.', '未知的条件类型。');
+            const valid = condition.key === 'tName' ? typeof condition.value === 'string' : condition.key === 'pSpiritStatus' ? typeof condition.value === 'boolean' : Array.isArray(condition.value);
+            required(valid, conditionPath + '.value', 'The condition value has the wrong format.', '条件值格式不正确。');
+          }
           if (rule.type === 'kamisamaniNattaHi') findings.push({ severity: 'warning', path: `${path}[${index}]`, en: 'Custom JavaScript requires maintainer review; it has not been executed.', zh: '自定义 JavaScript 需要维护者确认，审核未执行代码。' });
         }
       }

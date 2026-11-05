@@ -46,6 +46,10 @@ export async function processSubmission({ github, number, action, actor, command
   try { parsed = parseSubmission(initialBody); if (!parsed) throw new Error('Submission marker was removed'); }
   catch (error) {
     if (!await current()) return { skipped: 'stale' };
+    if (previous?.bodyHash === initialHash && previous.status === 'changes-requested') {
+      await github.setStatus(number, previous.status); await github.report(number, previous);
+      return { skipped: 'already-reviewed' };
+    }
     const metadata = { revision: initialHash, bodyHash: initialHash, status: 'changes-requested', summary: summary('The submission needs a format correction.', '投稿格式需要修改。'),
       findings: [error.finding || { severity: 'error', path: '$', en: 'Restore the JPX-PLUS submission format.', zh: '请恢复 JPX-PLUS 投稿格式。' }] };
     await github.commit({ [statePath]: metadata }, `Record validation result for #${number}`);
@@ -57,7 +61,10 @@ export async function processSubmission({ github, number, action, actor, command
     if (!/^[a-f0-9]{64}$/.test(expectedHash || '') || expectedHash !== sha256 || previous?.revision !== sha256 || previous?.bodyHash !== initialHash || !['needs-review', 'unavailable'].includes(previous.status)) throw new Error('Approval must match the exact pending revision');
   } else if (!command && previous?.bodyHash === initialHash && previous.status !== 'pending' && action !== 'reopened') {
     const catalog = await github.read('catalog/index.json', emptyCatalog());
-    if (previous.status !== 'published' || catalog.entries.some(entry => entry.id === number && entry.sha256 === sha256)) return { skipped: 'already-reviewed' };
+    if (previous.status !== 'published' || catalog.entries.some(entry => entry.id === number && entry.sha256 === sha256)) {
+      await github.setStatus(number, previous.status); await github.report(number, previous);
+      return { skipped: 'already-reviewed' };
+    }
   }
   let result;
   if (command === 'approve') result = { verdict: 'pass', summary: summary(`Approved by maintainer ${actor}.`, `维护者 ${actor} 已确认。`), findings };
