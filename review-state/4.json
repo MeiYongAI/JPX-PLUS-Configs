@@ -1,10 +1,71 @@
 {
   "revision": "69721484e8f99abaad177324eed76541c9c410a248b1e114ca5040b0e9d2dc6a",
   "bodyHash": "2aa6bdbe7571966e7f4b30e781a2dc5e429c48e3d03b5065cfa607d0f0dda166",
-  "status": "pending",
+  "status": "needs-review",
   "summary": {
-    "en": "Review in progress.",
-    "zh": "正在审核。"
+    "en": "The submission is structurally complete and contains no custom JavaScript or external data access, but the description is only 'TEST' and does not explain the configuration. Several rules also appear redundant, overlapping, or inconsistent with a TwoHanded profile, so maintainer review is needed to confirm intent.",
+    "zh": "提交结构完整，未包含自定义 JavaScript 或外部数据访问，但描述仅为“TEST”，未说明配置意图。多条规则存在重复、重叠或与双手武器定位不一致的问题，需要维护者审查确认意图。"
   },
-  "findings": []
+  "findings": [
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.description",
+      "en": "Description is just 'TEST', giving no explanation of the strategy, class assumptions, or intended difficulty/level ranges, so reviewers cannot verify whether the behavior matches the author's intent.",
+      "zh": "描述仅为“TEST”，未说明策略、职业假设或预期难度/等级范围，审查者无法判断配置行为是否符合作者意图。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.attacks",
+      "en": "Many target rules use nearly identical conditions with only small differences in 'matched' counts and offsets, creating heavily overlapping priority chains; intended order and fallback behavior is unclear.",
+      "zh": "许多 target 规则条件几乎相同，仅 matched 数量与偏移略有差异，导致优先级链大量重叠，预期顺序与回退行为不清晰。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.attacks[0..10]",
+      "en": "Entry 0 is a 'target' rule with a pActionCounts guard against Weaken, followed by a global 'Weaken' spellDebuff rule; the first target rule will not reselect when Weaken is already counted, so the global debuff may apply to whichever target is current rather than the intended one.",
+      "zh": "第 0 条 target 规则带有 pActionCounts 对 Weaken 的检查，紧接着是全局 Weaken 法术减益规则；当 Weaken 已被计数时首条 target 规则不会重新选目标，全局减益可能施放在当前目标而非预期目标。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.attacks[16..19]",
+      "en": "Several target rules for Rending Blow use tTypes 'matched' values [5,5] on a list of seven types with offset [-2,2], which appears over-constrained; if fewer than five of the surrounding monsters match, the rule silently never fires.",
+      "zh": "多条 Rending Blow 相关 target 规则在含七种类型、偏移 [-2,2] 的条件下要求 tTypes 的 matched 为 [5,5]，条件过严；若周围怪物中匹配不足五个，该规则将静默失效。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.attacks[*] (skill 'Rending Blow' entries)",
+      "en": "Skill rules for Rending Blow include contradictory activeMonsters and monsters ranges such as activeMonsters [0,5] alongside monsters [6,10]; the exact semantics depend on the JPX runtime, so the author should confirm these are mutually satisfiable in practice.",
+      "zh": "Rending Blow 的 skill 规则同时出现 activeMonsters [0,5] 与 monsters [6,10] 等彼此可能矛盾的区间；实际语义取决于 JPX 运行时，作者应确认这些条件在实践中能否同时满足。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.attacks (Great Cleave targets)",
+      "en": "Great Cleave target rules appear duplicated with the same tEffectStacks [3,3] Penetrated Armor requirement and similar pOC thresholds, so some entries may be unreachable or behave identically, making the intended rotation unclear.",
+      "zh": "Great Cleave 的 target 规则多次重复使用 tEffectStacks [3,3] Penetrated Armor 要求及相近的 pOC 阈值，部分条目可能永远不可达或行为完全相同，使预期循环不清晰。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.supports (stop 'Can't heal' and 'Not Enough Mana')",
+      "en": "Support list contains 'stop' rules triggered by low HP/MP after numerous item and spell support entries; placement after those entries means the stop rules might fire only after heal/mana rules are exhausted, but the intended stop ordering is not documented.",
+      "zh": "support 列表在大量物品与法术支援条目之后才出现基于低血量/低魔量的 stop 规则；其位置意味着这些 stop 可能仅在治疗/回魔规则用尽后触发，但预期停止顺序未说明。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.supports[*] (Spirit/Restorative items)",
+      "en": "Spirit Draught, Spirit Gem, and Spirit Potion rules overlap in pSP thresholds and battle-type restrictions (e.g., Spirit Potion appears with battleTypes ['Item'] and also unconditional ranges), making the intended precedence uncertain.",
+      "zh": "Spirit Draught、Spirit Gem、Spirit Potion 规则在 pSP 阈值与战斗类型限制上相互重叠（例如 Spirit Potion 既有 battleTypes ['Item'] 又有无战斗类型限制的条目），预期优先级不明确。"
+    },
+    {
+      "severity": "warning",
+      "path": "$.untrustedSubmission.config.TwoHanded_General.supports (Scroll conditions)",
+      "en": "Scroll rules blend pEffects/pIgnoredEffects checks for the same effect with different ranges (e.g., Shadow Veil both [0,999] and ignored [9000,9999]), and some pairs are near-duplicates; reviewers should confirm these are intentional guards rather than copy-paste errors.",
+      "zh": "卷轴规则对同一效果混用 pEffects/pIgnoredEffects 且区间不同（如 Shadow Veil 同时出现 [0,999] 与被忽略 [9000,9999]），部分成对条目近乎重复；审查者应确认这是有意防护而非复制粘贴错误。"
+    },
+    {
+      "severity": "info",
+      "path": "$.untrustedSubmission.scriptVersion",
+      "en": "scriptVersion '2026.11.07.1' is a version label only; it is not evaluated as a date or compatibility signal, and no custom JavaScript was provided for code review.",
+      "zh": "scriptVersion“2026.11.07.1”仅为版本标签，不被视为日期或兼容性信号；本次提交未提供自定义 JavaScript 供代码审查。"
+    }
+  ]
 }
