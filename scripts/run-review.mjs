@@ -16,7 +16,7 @@ const github = new GitHub({ repository: process.env.GITHUB_REPOSITORY, token: pr
 try {
   const options = { github, action, actor: process.env.GITHUB_ACTOR, command, expectedHash: inputs.sha256,
     limits: { total: integer(process.env.REVIEW_DAILY_LIMIT, 50), author: integer(process.env.REVIEW_AUTHOR_DAILY_LIMIT, 10) },
-    review: envelope => reviewWithDeepSeek(envelope, { apiKey: process.env.DEEPSEEK_API_KEY, model: process.env.DEEPSEEK_MODEL || 'deepseek-flash' }) };
+    review: candidates => reviewWithDeepSeek(candidates, { apiKey: process.env.DEEPSEEK_API_KEY, model: process.env.DEEPSEEK_MODEL || 'deepseek-flash' }) };
   if (scheduled) {
     // GitHub keeps only one pending concurrency run. Reconcile dropped events.
     const catalog = await github.read('catalog/index.json', { entries: [] });
@@ -25,8 +25,13 @@ try {
     const started = Date.now();
     for (const id of numbers) {
       if (Date.now() - started > 150000) break;
-      const result = await processSubmission({ ...options, number: id });
-      console.log(JSON.stringify({ issue: id, status: result.status || result.skipped }));
+      try {
+        const result = await processSubmission({ ...options, number: id });
+        console.log(JSON.stringify({ issue: id, status: result.status || result.skipped }));
+      } catch {
+        // One failed GitHub request must not starve later submissions.
+        console.error(JSON.stringify({ issue: id, status: 'error' })); process.exitCode = 1;
+      }
     }
   } else {
     const result = await processSubmission({ ...options, number });

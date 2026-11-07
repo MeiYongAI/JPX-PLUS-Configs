@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { securityCandidates, securityFindings } from './security.mjs';
 
 export const MARKER = '<!-- JPX-PLUS-CONFIG:v1 -->';
 export const MAX_BYTES = 60000;
@@ -9,6 +10,16 @@ const supportTypes = ['spellSupport', 'item', 'toggle', 'stop'];
 const attackTypes = ['target', 'toggle', 'smartDebuff', 'spellDebuff', 'spellDamage', 'skill', 'normalAttack', 'kamisamaniNattaHi'];
 const keyTypes = new Set([...supportTypes, ...attackTypes]);
 const conditions = new Set(['world', 'pLevel', 'pMaxSpellType', 'battleTypes', 'difficulty', 'roundCurrent', 'roundLeft', 'roundTotal', 'floor', 'pActionCooldown', 'pActionHistory', 'pActionCounts', 'pTotalActionCounts', 'pHP', 'pMP', 'pSP', 'pOC', 'pSpiritStatus', 'pEffects', 'pIgnoredEffects', 'pEffectStacks', 'monsters', 'activeMonsters', 'defeatedMonsters', 'bosses', 'activeBosses', 'defeatedBosses', 'mLevel', 'mWithoutEffects', 'tName', 'tTypes', 'tClasses', 'tPowerLevel', 'tIndex', 'tHP', 'tMP', 'tSP', 'tEffects', 'tIgnoredEffects', 'tEffectStacks', 'tDaysSinceUpdate']);
+const selections = new Set(['world', 'pMaxSpellType', 'battleTypes', 'difficulty', 'tTypes', 'tClasses']);
+const namedRanges = new Set(['pActionCooldown', 'pActionHistory', 'pActionCounts', 'pTotalActionCounts', 'pEffects', 'pIgnoredEffects', 'pEffectStacks', 'mWithoutEffects', 'tEffects', 'tIgnoredEffects', 'tEffectStacks']);
+const numericPair = value => Array.isArray(value) && value.length === 2 && value.every(item => typeof item === 'number' && Number.isFinite(item));
+function validConditionValue(key, value) {
+  if (key === 'tName') return typeof value === 'string';
+  if (key === 'pSpiritStatus') return typeof value === 'boolean';
+  if (selections.has(key)) return Array.isArray(value) && value.every(item => typeof item === 'string');
+  if (namedRanges.has(key)) return Array.isArray(value) && numericPair(value.slice(0, 2)) && value.slice(2).every(item => typeof item === 'string');
+  return numericPair(value);
+}
 const plain = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const fail = (path, en, zh) => { throw Object.assign(new Error(en), { finding: { severity: 'error', path, en, zh } }); };
 const required = (condition, path, en, zh) => { if (!condition) fail(path, en, zh); };
@@ -30,7 +41,6 @@ export function parseSubmission(body) {
 }
 
 export function validateEnvelope(envelope) {
-  const findings = [];
   let nodes = 0;
   function visit(value, path = '$', depth = 0) {
     required(++nodes <= 12000 && depth <= 24, path, 'The configuration is too complex.', '配置层级或内容过多。');
@@ -107,18 +117,17 @@ export function validateEnvelope(envelope) {
           for (const [conditionIndex, condition] of (rule.conditions || []).entries()) {
             const conditionPath = `${path}[${index}].conditions[${conditionIndex}]`;
             required(plain(condition) && conditions.has(condition.key), conditionPath, 'Unknown condition type.', '未知的条件类型。');
-            const valid = condition.key === 'tName' ? typeof condition.value === 'string' : condition.key === 'pSpiritStatus' ? typeof condition.value === 'boolean' : Array.isArray(condition.value);
-            required(valid, conditionPath + '.value', 'The condition value has the wrong format.', '条件值格式不正确。');
+            required(validConditionValue(condition.key, condition.value), conditionPath + '.value', 'The condition value has the wrong format.', '条件值格式不正确。');
+            for (const field of ['offset', 'matched']) if (field in condition) required(numericPair(condition[field]), conditionPath + '.' + field, 'The condition range must contain two numbers.', '条件范围须包含两个数值。');
           }
-          if (rule.type === 'kamisamaniNattaHi') findings.push({ severity: 'warning', path: `${path}[${index}]`, en: 'Custom JavaScript requires maintainer review; it has not been executed.', zh: '自定义 JavaScript 需要维护者确认，审核未执行代码。' });
+          if (rule.type === 'kamisamaniNattaHi' && 'code' in rule) required(typeof rule.code === 'string', `${path}[${index}].code`, 'Custom JavaScript must be text.', '自定义 JavaScript 必须为文本。');
         }
       }
     }
     required(ruleCount <= 2000, '$.config', 'Share fewer than 2,001 rules at once.', '一次分享最多 2,000 条规则。');
   }
-  const text = JSON.stringify(config);
-  if (/(?:https?:|@import\b|url\s*\(|<\/?[a-z!][^>]*>)/i.test(text)) findings.push({ severity: 'warning', path: '$.config', en: 'External resources or markup need maintainer review.', zh: '外部资源或标记内容需要维护者确认。' });
+  const candidates = securityCandidates(config), findings = securityFindings(candidates);
   const result = snapshot(envelope);
   required(Buffer.byteLength(result.content) + 50 <= MAX_BYTES, '$', 'The submission exceeds 60 KB.', '投稿超过 60 KB。');
-  return { envelope, ...result, findings: findings.slice(0, 20), manualRequired: findings.length > 0 };
+  return { envelope, ...result, findings, candidates, manualRequired: candidates.length > 0 };
 }
