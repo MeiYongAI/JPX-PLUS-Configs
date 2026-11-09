@@ -1,0 +1,12 @@
+{
+  "revision": "f53b894b420c4396482da5ab9ddc6e5ce060682ad9ec4058e5220a03906b77a3",
+  "bodyHash": "5f172c0ee2e20ff2a20412591f45c1622d14edbf16ee0718efeb8511055e0c30",
+  "status": "published",
+  "reviewSource": "format",
+  "attempts": 0,
+  "summary": {
+    "en": "Format checks passed; no executable code or suspicious content detected.",
+    "zh": "格式检查通过，未检测到可执行代码或可疑内容。"
+  },
+  "findings": []
+}

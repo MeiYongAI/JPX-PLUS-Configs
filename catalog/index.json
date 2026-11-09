@@ -1,5 +1,23 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-05T19:35:02.960Z",
-  "entries": []
+  "updatedAt": "2026-11-09T14:51:27.499Z",
+  "entries": [
+    {
+      "id": 5,
+      "author": "worms3000",
+      "title": "二天一流战法师 · 电表倒转",
+      "description": "【！注意！】本策略为高配NI战法最大限度省钱策略，中低配请谨慎使用\n具体特点为：\n1.MP策略为10%时优先吃ME，只有在吃不到ME的情况下才会吃MP（几乎不会发生）\n2.除魔力GEM之外的所有宝石拿到马上吃，腾出位置给魔力GEM\n优点为配置足够高可以在完全不带药水的情况下进GF然后背一身药水出来\n本人的情况是一轮GF仅会吃掉0~1个ME，所有消耗品全部正增长\n缺点是由于大量使用GEM会导致T数大幅增加，不适合竞速\n虽然1H和DW在配置足够的情况下应该也适用，但是可能会有考虑不周的地方\n\n最后，本策略目前主要用于策略商店测试，内有注释掉的策略，可根据需要自行调整用作其他用途",
+      "world": "Persistent",
+      "kind": "battle-mode",
+      "mode": "NI_Mage_General",
+      "modes": [
+        "NI_Mage_General"
+      ],
+      "scriptVersion": "2026.11.07.1",
+      "updatedAt": "2026-11-09T14:51:27.499Z",
+      "sha256": "f53b894b420c4396482da5ab9ddc6e5ce060682ad9ec4058e5220a03906b77a3",
+      "configPath": "catalog/configs/5-f53b894b420c4396482da5ab9ddc6e5ce060682ad9ec4058e5220a03906b77a3.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/5"
+    }
+  ]
 }
