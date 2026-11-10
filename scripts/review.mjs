@@ -121,6 +121,8 @@ export async function processSubmission({ github, number, action, actor, command
       modes: envelope.kind === 'stats' ? [] : envelope.mode ? [envelope.mode] : [...MODES].filter(mode => Object.entries(envelope.config[mode] || {}).some(([key, rules]) =>
         (key === 'supports' || key === 'attacks' || key.startsWith('kb_')) && Array.isArray(rules) && rules.length)),
       scriptVersion: envelope.scriptVersion, updatedAt: now(), sha256, configPath, issueUrl: `https://github.com/${github.repository}/issues/${number}` };
+    const rating = catalog.entries.find(item => item.id === number)?.rating;
+    if (rating) entry.rating = rating;
     catalog.entries = [...catalog.entries.filter(item => item.id !== number), entry].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)); catalog.updatedAt = now();
     files['catalog/index.json'] = catalog; files[configPath] = content;
   }

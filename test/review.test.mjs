@@ -379,6 +379,7 @@ test('retrying a hidden malformed submission clears hide state but never bypasse
 
 test('a reviewed update replaces the same listing while retaining the old approved snapshot', async () => {
   const github = new FakeGitHub(); await run(github);
+  github.files['catalog/index.json'].entries[0].rating = { count: 3, sum: 13 };
   const first = clone(github.files['catalog/index.json'].entries[0]), original = clone(github.files[first.configPath]);
   const newer = codeConfig(); newer.title = 'Updated rules'; newer.config.TwoHanded_General.supports[0].name = 'Health Elixir';
   github.value.body = body(newer);
@@ -389,5 +390,6 @@ test('a reviewed update replaces the same listing while retaining the old approv
   assert.equal(approved.status, 'published');
   const entries = github.files['catalog/index.json'].entries; assert.equal(entries.length, 1);
   assert.equal(entries[0].id, first.id); assert.equal(entries[0].issueUrl, first.issueUrl); assert.notEqual(entries[0].sha256, first.sha256);
+  assert.deepEqual(entries[0].rating, { count: 3, sum: 13 });
   assert.deepEqual(github.files[entries[0].configPath], newer); assert.deepEqual(github.files[first.configPath], original);
 });

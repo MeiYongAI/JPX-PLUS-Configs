@@ -31,6 +31,8 @@ The workflow uses the built-in `GITHUB_TOKEN`, not a shared personal access toke
 
 Run `npm test` with Node.js 22 or later. Tests use mocked API responses and do not spend API credits or publish issues.
 
+Ratings are separate from discussion comments. The `Update configuration ratings` workflow reads marked 1–5 star votes, counts each GitHub user ID once, and stores `{count,sum}` in the catalog. The latest valid vote wins; comment ID breaks timestamp ties. Edits and deletions update totals, and the twice-hourly reconciliation catches displaced events. Configuration revisions retain the same rating history. Rating updates use default-branch code and share the catalog's commit queue without invoking AI review. Deploy both repositories to enable the complete feature.
+
 ---
 
 # JPX-PLUS 配置分享
@@ -56,3 +58,5 @@ AI 只接收需要检查的源文本片段，必须指出安全问题的类别�
 维护者可以推翻旧版 AI 的误判，但不能跳过格式校验。`retry` 会重置该版本的自动尝试次数，并使用当前审核策略；已完成的旧审核不会因策略更新被悄悄改判。
 
 Bot 通常由投稿事件触发，每半小时补查一次可能被 GitHub 并发队列丢弃的事件。检查与发布只使用默认分支代码；密钥不进入脚本、配置或评论。运行 `npm test` 可执行离线测试，无需 API 密钥。
+
+评分与普通评论分开存储。`Update configuration ratings` 流程按 GitHub 账号 ID 去重，每个账号只统计最新的有效 1 至 5 星评分。修改或删除评分后更新目录中的总分和人数，每半小时补查遗漏事件；配置更新保留原有评分。汇总不调用 AI，也不会修改配置内容。需要同时发布主脚本和本仓库的评分流程。
