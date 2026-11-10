@@ -1,4 +1,7 @@
 node_modules/
+.wrangler/
+downloads/.wrangler/
+downloads/.dev.vars*
 .env
 .env.*
 !.env.example

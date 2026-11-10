@@ -37,6 +37,8 @@ Ratings are separate from discussion comments. The `Update configuration ratings
 
 # JPX-PLUS 配置分享
 
+下载统计由 Cloudflare Worker 与 D1 提供，支持匿名访问与按天去重。[部署与统计口径](downloads/README.md)。
+
 这是 JPX-PLUS 的社区配置仓库。玩家在脚本中的配置商店浏览、分享配置；投稿经过格式与安全检查后上架。审核只关注设备与数据安全，不评价战斗策略。**特别感谢原版 JPX 作者[闯关弟子](https://forums.e-hentai.org/index.php?showuser=4802944)。** 本商店是 JPX-PLUS 的独立功能。
 
 安装 [JPX-PLUS](https://raw.githubusercontent.com/MeiYongAI/JPX-PLUS/main/JPX-PLUS.user.js) 2026.11.08.1 或更新版本，在设置中的**配置管理 → 商店**打开；无需另装插件，浏览也无需登录。

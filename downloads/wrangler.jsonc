@@ -1,0 +1,14 @@
+{
+  "name": "jpx-plus-downloads",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-11-10",
+  "workers_dev": true,
+  "preview_urls": false,
+  "d1_databases": [{ "binding": "DB", "database_name": "jpx-plus-downloads", "database_id": "8026176c-1d24-4aa2-ac4a-539451f0302f" }],
+  "observability": { "enabled": false },
+  "triggers": { "crons": ["23 2 * * *"] },
+  "ratelimits": [
+    { "name": "DOWNLOAD_WRITES", "namespace_id": "2026111001", "simple": { "limit": 30, "period": 60 } },
+    { "name": "DOWNLOAD_READS", "namespace_id": "2026111002", "simple": { "limit": 120, "period": 60 } }
+  ]
+}
