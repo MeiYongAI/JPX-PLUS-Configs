@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T14:02:20.572Z",
+  "updatedAt": "2026-11-12T14:10:31.695Z",
   "entries": [
+    {
+      "id": 17,
+      "author": "l13763824039",
+      "title": "双手非锤Two-handed · General",
+      "description": "太长不看:就多个多怪睡眠策略。\n非锤存货堪忧。推荐前期3轻2重。如果你T2能满血秒怪，请把攻击规则的34号的T2规则禁用\n新增\n- 总怪>5,存活<=5时，如果全部怪血量<0.9,不使用T2\n- 自动分等级区间刷各类法术熟练度。不在同一个区间同时刷不同法术熟练度\nTLDR: Only add sleep if there are many monsters\nNon-mace has a hard time surviving. Use 3 light + 2 heavy if needed.\nIf your T2 can one-shot monsters with full HP, please disable rule 34 under attack. It uses T2 if all monsters' HP is above 0.9\nNew\n- When #monter >5, #avlie <=5, use T2 only if all monsters' HP >= 0.9\n- Auto farm prof in different level intervals. Now it doesn't farm all kinds of prof at the same time.",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "TwoHanded_General",
+      "modes": [
+        "TwoHanded_General"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T14:10:31.680Z",
+      "sha256": "83f88e259b6a35d7c40580e528000b9edfa1680b8985c69dda39c346bf511c14",
+      "configPath": "catalog/configs/17-83f88e259b6a35d7c40580e528000b9edfa1680b8985c69dda39c346bf511c14.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/17"
+    },
     {
       "id": 16,
       "author": "l13763824039",
