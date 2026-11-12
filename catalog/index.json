@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T14:11:53.845Z",
+  "updatedAt": "2026-11-12T16:44:41.585Z",
   "entries": [
     {
       "id": 16,
@@ -17,7 +17,11 @@
       "updatedAt": "2026-11-12T14:11:53.833Z",
       "sha256": "916607d19a09183238d1dee556056aad226ea83ae51ef6aa222c0194a769a469",
       "configPath": "catalog/configs/16-916607d19a09183238d1dee556056aad226ea83ae51ef6aa222c0194a769a469.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/16"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/16",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 11,
@@ -34,7 +38,11 @@
       "updatedAt": "2026-11-12T14:11:16.782Z",
       "sha256": "fd605958c6cc303177bad18202b6876d6fc1ecc5624a5f0c78afc6155b7b63a1",
       "configPath": "catalog/configs/11-fd605958c6cc303177bad18202b6876d6fc1ecc5624a5f0c78afc6155b7b63a1.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/11"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/11",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 17,
@@ -51,7 +59,11 @@
       "updatedAt": "2026-11-12T14:10:31.680Z",
       "sha256": "83f88e259b6a35d7c40580e528000b9edfa1680b8985c69dda39c346bf511c14",
       "configPath": "catalog/configs/17-83f88e259b6a35d7c40580e528000b9edfa1680b8985c69dda39c346bf511c14.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/17"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/17",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 15,
@@ -68,7 +80,11 @@
       "updatedAt": "2026-11-12T13:56:58.180Z",
       "sha256": "63eb60cef510c174d9d2a99ec3796a23b474d0cded859fad78e615ebcf993634",
       "configPath": "catalog/configs/15-63eb60cef510c174d9d2a99ec3796a23b474d0cded859fad78e615ebcf993634.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/15"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/15",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 14,
@@ -85,7 +101,11 @@
       "updatedAt": "2026-11-12T13:53:13.425Z",
       "sha256": "1c9337c15cd89e6cacd2e13607113a35808beb9aa33fd66ed6ace562e6f1538c",
       "configPath": "catalog/configs/14-1c9337c15cd89e6cacd2e13607113a35808beb9aa33fd66ed6ace562e6f1538c.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/14"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/14",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 13,
@@ -102,7 +122,11 @@
       "updatedAt": "2026-11-12T13:50:26.703Z",
       "sha256": "510a5153c9e24fa0574db6fe2c3ec4684ba20f25aaff0992e092f3d311651d0a",
       "configPath": "catalog/configs/13-510a5153c9e24fa0574db6fe2c3ec4684ba20f25aaff0992e092f3d311651d0a.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/13"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/13",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 12,
@@ -119,7 +143,11 @@
       "updatedAt": "2026-11-12T13:46:49.392Z",
       "sha256": "f8a4944b91ee7288fe3c23ad095ff74e37496da798cad80e5689f89e329b6977",
       "configPath": "catalog/configs/12-f8a4944b91ee7288fe3c23ad095ff74e37496da798cad80e5689f89e329b6977.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/12"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/12",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 10,
@@ -136,7 +164,11 @@
       "updatedAt": "2026-11-12T13:43:07.590Z",
       "sha256": "64d9728b620b1d84d22d27b0067cce29ae54516f308919c7d12a0e1f90b303de",
       "configPath": "catalog/configs/10-64d9728b620b1d84d22d27b0067cce29ae54516f308919c7d12a0e1f90b303de.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/10"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/10",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 9,
@@ -153,7 +185,11 @@
       "updatedAt": "2026-11-12T13:40:07.745Z",
       "sha256": "908b3061c447b7743190aee74f290b09a1352b4573c19fab950a10f0d7ea07c0",
       "configPath": "catalog/configs/9-908b3061c447b7743190aee74f290b09a1352b4573c19fab950a10f0d7ea07c0.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/9"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/9",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 5,
