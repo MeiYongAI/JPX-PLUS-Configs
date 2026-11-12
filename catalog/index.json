@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:35:09.180Z",
+  "updatedAt": "2026-11-12T13:40:07.851Z",
   "entries": [
+    {
+      "id": 9,
+      "author": "l13763824039",
+      "title": "杖法通用Staff · General",
+      "description": "主世界非新手法师用。100场全IMP。非100场仅IMP女高\n注意依旧会刷熟练度\n新增\n- 优化了T3决策。不在剩余全部普通小怪都残血时释放\nStaff mage rule I used in Persistent. Not for newbies.\nIMP all in 100. Only IMP SG in the rest AR.\nThis ruleset would farm prof\nNew\n- Optimized T3. If you can kill all remaining NORMAL monsters with T2/1, it would not cast T3",
+      "world": "Persistent",
+      "kind": "battle-mode",
+      "mode": "Staff_General",
+      "modes": [
+        "Staff_General"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T13:40:07.745Z",
+      "sha256": "908b3061c447b7743190aee74f290b09a1352b4573c19fab950a10f0d7ea07c0",
+      "configPath": "catalog/configs/9-908b3061c447b7743190aee74f290b09a1352b4573c19fab950a10f0d7ea07c0.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/9"
+    },
     {
       "id": 5,
       "author": "worms3000",
