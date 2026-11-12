@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:29:25.883Z",
+  "updatedAt": "2026-11-12T13:29:38.089Z",
   "entries": [
     {
       "id": 7,
@@ -18,23 +18,6 @@
       "sha256": "365cebd80bbfe7a85876464e5623886cd5814442c998a4b43932ba02f7e95f23",
       "configPath": "catalog/configs/7-365cebd80bbfe7a85876464e5623886cd5814442c998a4b43932ba02f7e95f23.json",
       "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/7"
-    },
-    {
-      "id": 6,
-      "author": "Icelunary",
-      "title": "l13763824039-杖法通用-Staff  · General-2026-11-12",
-      "description": "Some rules I'm using in Persistent. Not for newbies. Use at your own risk.\nIMP staff. IMP all in 100. Only IMP SG in the rest of AR. \nWhat is new\n- A little improvement on T3.\n个人主世界用的杖法。新手别用有风险\n100IMP全部，剩余只IMP女高。\n新增\n- 小幅度优化T3",
-      "world": "Persistent",
-      "kind": "battle-mode",
-      "mode": "Staff_General",
-      "modes": [
-        "Staff_General"
-      ],
-      "scriptVersion": "2026.11.11.3",
-      "updatedAt": "2026-11-12T13:19:51.724Z",
-      "sha256": "1d95c13699557593a58d38a2c3eaabe7c343ec8a7245fbabb7223383ff22e115",
-      "configPath": "catalog/configs/6-1d95c13699557593a58d38a2c3eaabe7c343ec8a7245fbabb7223383ff22e115.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/6"
     },
     {
       "id": 5,
