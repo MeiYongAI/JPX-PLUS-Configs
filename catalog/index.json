@@ -1,24 +1,7 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:29:38.089Z",
+  "updatedAt": "2026-11-12T13:35:09.180Z",
   "entries": [
-    {
-      "id": 7,
-      "author": "Icelunary",
-      "title": "l13763824039-双持法DW Mage · Grindfest",
-      "description": "Nothing new\n无新增",
-      "world": "Persistent",
-      "kind": "battle-mode",
-      "mode": "DW_Mage_Battle1000",
-      "modes": [
-        "DW_Mage_Battle1000"
-      ],
-      "scriptVersion": "2026.11.11.3",
-      "updatedAt": "2026-11-12T13:21:59.197Z",
-      "sha256": "365cebd80bbfe7a85876464e5623886cd5814442c998a4b43932ba02f7e95f23",
-      "configPath": "catalog/configs/7-365cebd80bbfe7a85876464e5623886cd5814442c998a4b43932ba02f7e95f23.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/7"
-    },
     {
       "id": 5,
       "author": "worms3000",
