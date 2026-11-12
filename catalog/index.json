@@ -1,24 +1,7 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:26:20.328Z",
+  "updatedAt": "2026-11-12T13:29:25.883Z",
   "entries": [
-    {
-      "id": 8,
-      "author": "Icelunary",
-      "title": "l1376-双手通用Two-handed · General-2026-11-12",
-      "description": "Good for Mace. Requires better equips if you use other 2H weapons.\nOnly works well in easy battles.\nWhat is new\n- Stop using T2 if #monster > 5, #alive monsters",
-      "world": "Isekai",
-      "kind": "battle-mode",
-      "mode": "TwoHanded_General",
-      "modes": [
-        "TwoHanded_General"
-      ],
-      "scriptVersion": "2026.11.11.3",
-      "updatedAt": "2026-11-12T13:26:20.135Z",
-      "sha256": "667acdcf6f8cb15e021acdd9a9f1eeb152c327878f788135431371147c387195",
-      "configPath": "catalog/configs/8-667acdcf6f8cb15e021acdd9a9f1eeb152c327878f788135431371147c387195.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/8"
-    },
     {
       "id": 7,
       "author": "Icelunary",
