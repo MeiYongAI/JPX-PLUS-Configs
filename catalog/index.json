@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:43:07.604Z",
+  "updatedAt": "2026-11-12T13:44:33.336Z",
   "entries": [
+    {
+      "id": 11,
+      "author": "l13763824039",
+      "title": "单手盾One-handed · General",
+      "description": "1-310级别通用。开局就能用。\n无更新\nPlug-N-play for levels 1-310.\nNo change",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "OneHanded_General",
+      "modes": [
+        "OneHanded_General"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T13:44:33.323Z",
+      "sha256": "f896ccb35255cbff4d5fbd56c42468616610126444184fb033d70cc4acc5e2eb",
+      "configPath": "catalog/configs/11-f896ccb35255cbff4d5fbd56c42468616610126444184fb033d70cc4acc5e2eb.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/11"
+    },
     {
       "id": 10,
       "author": "l13763824039",
