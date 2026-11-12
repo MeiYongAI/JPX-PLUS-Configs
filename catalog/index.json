@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:46:49.405Z",
+  "updatedAt": "2026-11-12T13:50:26.854Z",
   "entries": [
+    {
+      "id": 13,
+      "author": "l13763824039",
+      "title": "单手法爬塔1H Mage · Tower",
+      "description": "无更新。发布版本一定是吸收卷轴版本，吸收魔法被禁用了。你想用吸收魔法可以保存后调整\n\nNo change. The public version is always the absorption scroll version. Absorption spell is disabled.\nIf you prefer to use the spell version, you can save and edit.",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "1H_Mage_Tower",
+      "modes": [
+        "1H_Mage_Tower"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T13:50:26.703Z",
+      "sha256": "510a5153c9e24fa0574db6fe2c3ec4684ba20f25aaff0992e092f3d311651d0a",
+      "configPath": "catalog/configs/13-510a5153c9e24fa0574db6fe2c3ec4684ba20f25aaff0992e092f3d311651d0a.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/13"
+    },
     {
       "id": 12,
       "author": "l13763824039",
