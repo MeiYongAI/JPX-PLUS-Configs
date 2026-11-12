@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:40:07.851Z",
+  "updatedAt": "2026-11-12T13:43:07.604Z",
   "entries": [
+    {
+      "id": 10,
+      "author": "l13763824039",
+      "title": "双持战法DW Mage · Grindfest",
+      "description": "没更新。因为这一般是主世界才能用的，所以吸收魔法是非卷轴的(我不想买卷轴)\nNo change\nSince we usually use DW in the Persistent, absorption is a spell, not a scroll",
+      "world": "Persistent",
+      "kind": "battle-mode",
+      "mode": "DW_Mage_Battle1000",
+      "modes": [
+        "DW_Mage_Battle1000"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T13:43:07.590Z",
+      "sha256": "64d9728b620b1d84d22d27b0067cce29ae54516f308919c7d12a0e1f90b303de",
+      "configPath": "catalog/configs/10-64d9728b620b1d84d22d27b0067cce29ae54516f308919c7d12a0e1f90b303de.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/10"
+    },
     {
       "id": 9,
       "author": "l13763824039",
