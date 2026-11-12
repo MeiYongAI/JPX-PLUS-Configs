@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T14:10:31.695Z",
+  "updatedAt": "2026-11-12T14:11:16.793Z",
   "entries": [
+    {
+      "id": 11,
+      "author": "l13763824039",
+      "title": "单手盾One-handed · General",
+      "description": "1-310级别通用。开局就能用。\n更新\n- 不同区间自动刷熟练度，不再同时刷熟练度\nPlug-N-play for levels 1-310.\nChange\n- Auto farm prof in different level intervals. Now it doesn't farm all kinds of prof at the same time.",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "OneHanded_General",
+      "modes": [
+        "OneHanded_General"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T14:11:16.782Z",
+      "sha256": "fd605958c6cc303177bad18202b6876d6fc1ecc5624a5f0c78afc6155b7b63a1",
+      "configPath": "catalog/configs/11-fd605958c6cc303177bad18202b6876d6fc1ecc5624a5f0c78afc6155b7b63a1.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/11"
+    },
     {
       "id": 17,
       "author": "l13763824039",
@@ -103,23 +120,6 @@
       "sha256": "f8a4944b91ee7288fe3c23ad095ff74e37496da798cad80e5689f89e329b6977",
       "configPath": "catalog/configs/12-f8a4944b91ee7288fe3c23ad095ff74e37496da798cad80e5689f89e329b6977.json",
       "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/12"
-    },
-    {
-      "id": 11,
-      "author": "l13763824039",
-      "title": "单手盾One-handed · General",
-      "description": "1-310级别通用。开局就能用。\n无更新\nPlug-N-play for levels 1-310.\nNo change",
-      "world": "Isekai",
-      "kind": "battle-mode",
-      "mode": "OneHanded_General",
-      "modes": [
-        "OneHanded_General"
-      ],
-      "scriptVersion": "2026.11.11.3",
-      "updatedAt": "2026-11-12T13:44:33.323Z",
-      "sha256": "f896ccb35255cbff4d5fbd56c42468616610126444184fb033d70cc4acc5e2eb",
-      "configPath": "catalog/configs/11-f896ccb35255cbff4d5fbd56c42468616610126444184fb033d70cc4acc5e2eb.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/11"
     },
     {
       "id": 10,
