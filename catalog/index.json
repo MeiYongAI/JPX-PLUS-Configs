@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T14:11:16.793Z",
+  "updatedAt": "2026-11-12T14:11:53.845Z",
   "entries": [
+    {
+      "id": 16,
+      "author": "l13763824039",
+      "title": "双手锤Two-handed-Mace · General",
+      "description": "装备拿个Superior锤糊弄下就能用的策略。难活就3轻2重\n非锤也能用，但是建议用另一个。用这个装备要求高点\n新增\n- 总怪>5,存活<=5时，如果全部怪血量<0.9,不使用T2\n- 自动不同等级区间刷不同熟练度。不再同时刷不同熟练度了\nFine with any Superior+ Mace. If you're having survival issues, use 3 light + 2 heavy\n Works with non-mace, but need better equipment. I have another config for non-mace, use that one\nNew\n- When #monter >5, #avlie <=5, use T2 only if all monsters' HP >= 0.9\n- Auto farm prof in different level intervals. Now it doesn't farm all kinds of prof at the same time.",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "TwoHanded_General",
+      "modes": [
+        "TwoHanded_General"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T14:11:53.833Z",
+      "sha256": "916607d19a09183238d1dee556056aad226ea83ae51ef6aa222c0194a769a469",
+      "configPath": "catalog/configs/16-916607d19a09183238d1dee556056aad226ea83ae51ef6aa222c0194a769a469.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/16"
+    },
     {
       "id": 11,
       "author": "l13763824039",
@@ -35,23 +52,6 @@
       "sha256": "83f88e259b6a35d7c40580e528000b9edfa1680b8985c69dda39c346bf511c14",
       "configPath": "catalog/configs/17-83f88e259b6a35d7c40580e528000b9edfa1680b8985c69dda39c346bf511c14.json",
       "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/17"
-    },
-    {
-      "id": 16,
-      "author": "l13763824039",
-      "title": "双手锤Two-handed-Mace · General",
-      "description": "装备拿个Superior锤糊弄下就能用的策略。难活就3轻2重\n非锤也能用，但是建议用另一个。用这个装备要求高点\n新增\n- 总怪>5,存活<=5时，如果全部怪血量<0.9,不使用T2\nFine with any Superior+ Mace. If you're having survival issues, use 3 light + 2 heavy\n Works with non-mace, but need better equipment. I have another config for non-mace, use that one\nNew\n- When #monter >5, #avlie <=5, use T2 only if all monsters' HP >= 0.9",
-      "world": "Isekai",
-      "kind": "battle-mode",
-      "mode": "TwoHanded_General",
-      "modes": [
-        "TwoHanded_General"
-      ],
-      "scriptVersion": "2026.11.11.3",
-      "updatedAt": "2026-11-12T14:02:20.557Z",
-      "sha256": "14ebae35798e3b54bef92aed2cad017e587e865fec313c672d8057ab3a6ef9f8",
-      "configPath": "catalog/configs/16-14ebae35798e3b54bef92aed2cad017e587e865fec313c672d8057ab3a6ef9f8.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/16"
     },
     {
       "id": 15,
