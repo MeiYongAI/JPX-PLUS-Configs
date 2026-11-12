@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:53:13.441Z",
+  "updatedAt": "2026-11-12T13:56:58.192Z",
   "entries": [
+    {
+      "id": 15,
+      "author": "l13763824039",
+      "title": "杖法通用Staff · General",
+      "description": "异世界熟练度不够的，最好上个小省蓝吧。除非后缀省蓝\n- 稍稍优化了怪多时的debuff选择。最后发现weaken最通用.致盲优势区太小了\n\nYou probably don't have enough PF. I'd recommend having fewer economizers, unless you have focus.\nNew\n- Optimized debuff choice when there are a bunch of monsters. Weaken might be the most general.\nBlind has a very small advantage window over weaken.",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "Staff_General",
+      "modes": [
+        "Staff_General"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T13:56:58.180Z",
+      "sha256": "63eb60cef510c174d9d2a99ec3796a23b474d0cded859fad78e615ebcf993634",
+      "configPath": "catalog/configs/15-63eb60cef510c174d9d2a99ec3796a23b474d0cded859fad78e615ebcf993634.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/15"
+    },
     {
       "id": 14,
       "author": "l13763824039",
