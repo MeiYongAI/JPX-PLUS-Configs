@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-12T13:44:33.336Z",
+  "updatedAt": "2026-11-12T13:46:49.405Z",
   "entries": [
+    {
+      "id": 12,
+      "author": "l13763824039",
+      "title": "单手盾塔One-handed · Tower",
+      "description": "只有基础的单手盾打塔策略。分享只是觉得也许有人会有想用的规则(比如打人时没IMP就上，不会全IMP)\n\nOnly contains basic strategies for TW. Maybe you can get some inspiration from the debuff rule (especially IMP)",
+      "world": "Isekai",
+      "kind": "battle-mode",
+      "mode": "OneHanded_Tower",
+      "modes": [
+        "OneHanded_Tower"
+      ],
+      "scriptVersion": "2026.11.11.3",
+      "updatedAt": "2026-11-12T13:46:49.392Z",
+      "sha256": "f8a4944b91ee7288fe3c23ad095ff74e37496da798cad80e5689f89e329b6977",
+      "configPath": "catalog/configs/12-f8a4944b91ee7288fe3c23ad095ff74e37496da798cad80e5689f89e329b6977.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/12"
+    },
     {
       "id": 11,
       "author": "l13763824039",
