@@ -119,7 +119,7 @@ export async function processSubmission({ github, number, action, actor, command
     const entry = { id: number, author, title: envelope.title, description: envelope.description, world: envelope.world, kind: envelope.kind,
       ...(envelope.mode ? { mode: envelope.mode } : {}),
       modes: envelope.kind === 'stats' ? [] : envelope.mode ? [envelope.mode] : [...MODES].filter(mode => Object.entries(envelope.config[mode] || {}).some(([key, rules]) =>
-        (key === 'supports' || key === 'attacks' || key.startsWith('kb_')) && Array.isArray(rules) && rules.length)),
+        (key === 'rules' || key === 'supports' || key === 'attacks' || key.startsWith('kb_')) && Array.isArray(rules) && rules.length)),
       scriptVersion: envelope.scriptVersion, updatedAt: now(), sha256, configPath, issueUrl: `https://github.com/${github.repository}/issues/${number}` };
     const rating = catalog.entries.find(item => item.id === number)?.rating;
     if (rating) entry.rating = rating;

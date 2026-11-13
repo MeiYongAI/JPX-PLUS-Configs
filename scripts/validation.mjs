@@ -103,9 +103,9 @@ export function validateEnvelope(envelope) {
     for (const mode of modes) {
       required(plain(config[mode]), `$.config.${mode}`, 'Battle mode must be an object.', '战斗模式必须为对象。');
       if (envelope.kind === 'battle' && Object.keys(config[mode]).length === 0) continue;
-      for (const kind of ['supports', 'attacks', ...Object.keys(config[mode]).filter(key => key.startsWith('kb_'))]) {
+      for (const kind of [...(Object.hasOwn(config[mode], 'rules') ? ['rules'] : ['supports', 'attacks']), ...Object.keys(config[mode]).filter(key => key.startsWith('kb_'))]) {
         const rules = config[mode][kind], path = `$.config.${mode}.${kind}`;
-        required(Array.isArray(rules), path, 'A battle mode needs support and attack lists.', '战斗模式须包含辅助与攻击规则列表。');
+        required(Array.isArray(rules), path, 'A battle mode needs a rule list.', '战斗模式须包含规则列表。');
         ruleCount += rules.length;
         for (const [index, rule] of rules.entries()) {
           if (plain(rule) && ['spellInstant', 'spellDuration'].includes(rule.type)) rule.type = 'spellSupport';
