@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-14T01:50:37.184Z",
+  "updatedAt": "2026-11-20T16:31:29.889Z",
   "entries": [
     {
       "id": 16,
@@ -187,8 +187,8 @@
       "configPath": "catalog/configs/9-908b3061c447b7743190aee74f290b09a1352b4573c19fab950a10f0d7ea07c0.json",
       "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/9",
       "rating": {
-        "count": 0,
-        "sum": 0
+        "count": 1,
+        "sum": 4
       }
     },
     {
