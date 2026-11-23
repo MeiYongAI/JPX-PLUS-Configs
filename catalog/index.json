@@ -1,7 +1,24 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-20T16:31:29.889Z",
+  "updatedAt": "2026-11-23T08:33:50.193Z",
   "entries": [
+    {
+      "id": 18,
+      "author": "mikazuki119",
+      "title": "Staff · General",
+      "description": "Mid game lv 400+ staff mage config for arena , ring of blood , random encounter and grindfest\ngeneral use with imperil all enemy and infusion (im using fire mage set so i use infusion of flame if u use other mage you can either change the infusion or delete it)\nusing scroll of god , avatar , life , absorbtion at item world & grindfest from round 1\ncasting 2 weaken every round at grindfest from round 700",
+      "world": "Persistent",
+      "kind": "battle-mode",
+      "mode": "Staff_General",
+      "modes": [
+        "Staff_General"
+      ],
+      "scriptVersion": "2026.11.20.1",
+      "updatedAt": "2026-11-23T08:33:50.084Z",
+      "sha256": "63a44a66a715bece641408257bceb6a4888280b221f4e1826a5ca3ecf04f5603",
+      "configPath": "catalog/configs/18-63a44a66a715bece641408257bceb6a4888280b221f4e1826a5ca3ecf04f5603.json",
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/18"
+    },
     {
       "id": 16,
       "author": "l13763824039",
