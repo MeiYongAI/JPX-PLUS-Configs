@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-23T08:33:50.193Z",
+  "updatedAt": "2026-11-23T10:38:19.938Z",
   "entries": [
     {
       "id": 18,
@@ -17,7 +17,11 @@
       "updatedAt": "2026-11-23T08:33:50.084Z",
       "sha256": "63a44a66a715bece641408257bceb6a4888280b221f4e1826a5ca3ecf04f5603",
       "configPath": "catalog/configs/18-63a44a66a715bece641408257bceb6a4888280b221f4e1826a5ca3ecf04f5603.json",
-      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/18"
+      "issueUrl": "https://github.com/MeiYongAI/JPX-PLUS-Configs/issues/18",
+      "rating": {
+        "count": 0,
+        "sum": 0
+      }
     },
     {
       "id": 16,
